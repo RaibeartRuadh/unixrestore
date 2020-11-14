@@ -1,0 +1,20 @@
+Восстановление Ubuntu 20 при сбое initramfs (проблема суперблока)
+
+1. Создать загрузочную флешку с аналогичной ОС
+2. Загрузиться в режиме Демонстрации
+3. Открыть консоль
+
+sudo fdisk -l | grep Linux | grep -Ev 'swap'
+выбрать и запомнить свою систему
+sudo dumpe2fs /dev/sda1 | grep superblock
+выбрать суперблок
+восстановить
+sudo fsck -b 32768 /dev/sda1 -y
+смониторовать
+sudo mount /dev/sda1 /mnt
+проверить
+cd /mnt
+sudo mkdir test
+ls -l
+
+если ок - перезапуститься
